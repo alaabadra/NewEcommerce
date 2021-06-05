@@ -15,14 +15,42 @@ class CouponcodesController extends Controller
             $Couponcodesproduct=Couponcode::find($couponcode_id)->productsAttrsCouponcode()->get();
                 return response()->json([
                     'status'=>200,
-                    'message'=>$Couponcodesproduct
+                    'data'=>$Couponcodesproduct
                 ]);
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }
 
+      }
+      public function getCouponcodes(){
+        try{
+            $Couponcodes=Couponcode::get();
+                return response()->json([
+                    'status'=>200,
+                    'data'=>$Couponcodes
+                ]);
+        }catch(\Exception $ex){
+            return response()->json([
+                'status'=>500,
+                'data'=>'There is something wrong, please try again'
+            ]);  
+        }
+      }
+      public function showCouponcode($id){
+        try{
+            $Couponcode=Couponcode::where(['id'=>$id])->first();
+                return response()->json([
+                    'status'=>200,
+                    'data'=>$Couponcode
+                ]);
+        }catch(\Exception $ex){
+            return response()->json([
+                'status'=>500,
+                'data'=>'There is something wrong, please try again'
+            ]);  
+        }
       }
 }

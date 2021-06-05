@@ -23,7 +23,7 @@ Route::group(['namespace'=>'API'],function(){
     Route::group(['prefix'=>'user','namespace'=>'User'],function(){
 ############################Orders######################################
     Route::group(['prefix'=>'orders'],function(){
-        Route::post('/place-order/{orderId}', 'OrdersController@placeOrder')->name('user.user.placeOrder');
+        Route::any('/place-order', 'OrdersController@placeOrder')->name('user.user.placeOrder');
         Route::post('/get-user-orders', 'OrdersController@getuserOrders')->name('user.user.get_user_orders');
         Route::post('/add-to-user-order', 'OrdersController@addTouserOrder')->name('user.user.add_to_user_order');
         Route::post('/edit-user-order', 'OrdersController@EditUserOrder')->name('user.user.edit_user_order');
@@ -95,8 +95,9 @@ Route::group(['namespace'=>'API'],function(){
             Route::post('/store', 'CouponcodesController@store')->name('user.coupon.store');
             Route::post('/update/{id}', 'CouponcodesController@update')->name('user.coupon.update');
             Route::post('/delete/{couponId}', 'CouponcodesController@delete')->name('user.coupon.delete');
-            Route::get('/show/{couponId}', 'CouponcodesController@show')->name('user.coupon.show');
+            Route::get('/show-couponcode/{couponId}', 'CouponcodesController@showCouponcode')->name('user.coupon.show');
             Route::get('/apply-couponcodes-product/{couponId}', 'CouponcodesController@applyCouponcodesProduct')->name('user.coupon.applyCouponcodesProduct');
+            Route::get('/get-couponcodes', 'CouponcodesController@getCouponcodes')->name('user.coupon.getCouponcodes');
         });
 
 

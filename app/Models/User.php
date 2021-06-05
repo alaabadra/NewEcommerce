@@ -41,6 +41,8 @@ class User extends Authenticatable
     ];
 
     public function productsAttrsUser(){
-        return $this->belongsToMany("App\Models\ProductAttribute",'products_attrs_user');
+        return $this->belongsToMany("App\Models\ProductAttribute"
+        ,'products_attrs_user')
+        ->withPivot(['product_attr_quantity','product_attr_total']);
     }
 }

@@ -20,6 +20,7 @@ class CreateProductsAttrsUserTable extends Migration
             $table->unsignedBigInteger('product_attribute_id');
             $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->integer('product_attr_quantity')->default(1);
+            $table->integer('product_attr_total')->default(0);
 
             // $table->string('sub_total');
             // $table->string('total');

@@ -26,7 +26,6 @@ class CreateOrdersTable extends Migration
             $table->string('billing_name');
             $table->string('billing_address');
             $table->string('billing_phone');
-            $table->string('payment_method');
             $table->string('number_card');
             $table->string('order_status')->default('Active');
             

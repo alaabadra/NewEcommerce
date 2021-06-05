@@ -32,13 +32,10 @@ class HomeController extends Controller
         $productsUser=User::find(1)->productsAttrsUser()->get();
         session()->put('cartInfo',$productsUser);
         $sessionCartInfo=session()->get('cartInfo');
-        //put putQuantityForProductBasedOnProdAttr
-        //$this->putQuantityForProductBasedOnProdAttr();
         return response()->json([
             'status'=>200,
-            'message'=>$sessionCartInfo
+            'data'=>$sessionCartInfo
         ]);
-       // return view('home');
     }
     
 
@@ -46,14 +43,14 @@ class HomeController extends Controller
     $latestOffers=  Discount::with('products')->latest()->paginate(9);
       return response()->json([
         'status'=>200,
-        'message'=>$latestOffers
+        'data'=>$latestOffers
       ]);
     }
     public function mostPopularCategories(){
         $mostPopularCategories=Category::where('category_visit_num','>',3)->get();
         return response()->json([
             'status'=>200,
-            'message'=>$mostPopularCategories
+            'data'=>$mostPopularCategories
           ]);
     }
     public function autocompleteSearch(Request $req){
@@ -86,12 +83,12 @@ class HomeController extends Controller
             $latestProducts=Product::latest()->paginate(6);
             return response()->json([
                 'status'=>200,
-                'message'=>$latestProducts
+                'data'=>$latestProducts
             ]);  
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }
     }
@@ -100,12 +97,12 @@ class HomeController extends Controller
             $latestCategories=Category::latest()->paginate(6);
             return response()->json([
                 'status'=>200,
-                'message'=>$latestCategories
+                'data'=>$latestCategories
             ]);  
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }
     }
@@ -115,12 +112,12 @@ class HomeController extends Controller
             $popularProducts=Product::where(['product_popular'=>1])->paginate(6);
             return response()->json([
                 'status'=>200,
-                'message'=>$popularProducts
+                'data'=>$popularProducts
             ]);  
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }
     }
@@ -130,27 +127,27 @@ class HomeController extends Controller
             $featureProducts=Product::where(['product_feature'=>1])->paginate(6);
             return response()->json([
                 'status'=>200,
-                'message'=>$featureProducts
+                'data'=>$featureProducts
             ]);  
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }
     }
 
     public function getTheBestProducts(){
        try{
-            $bestProducts=Product::where(['product_the_best'=>1])->paginate(6);
+            $bestProducts=ProductAttribute::where(['product_feature'=>1])->paginate(6);
             return response()->json([
                 'status'=>200,
-                'message'=>$bestProducts
+                'data'=>$bestProducts
             ]);  
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }  
     }
@@ -161,12 +158,12 @@ class HomeController extends Controller
 
             return response()->json([
                 'status'=>200,
-                'message'=>$moreSaleProducts
+                'data'=>$moreSaleProducts
             ]);  
         }catch(\Exception $ex){
             return response()->json([
                 'status'=>500,
-                'message'=>'There is something wrong, please try again'
+                'data'=>'There is something wrong, please try again'
             ]);  
         }  
     }
