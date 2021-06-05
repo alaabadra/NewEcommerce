@@ -49,7 +49,7 @@ class OrdersController extends Controller
            }
             $shippingUserDetails=Delivery::where(['user_id'=>2])->with('user')->first();//user (delivery man)
              $deliveryuserName=$shippingUserDetails->name;
-            if($req->payment_method=='Payumoney'||$req->payment_method=='COD'||$req->payment_method=='paypal'){
+            if($req->payment_method=='Payumoney'||$req->payment_method=='COD'||$req->payment_method=='paypal'||$req->payment_method=='payoneer'){
                 $messageData=['type_your_payment'=>$req->payment_method,'delivery man name'=>$deliveryuserName,'your email'=>$userInfo->email,'your name'=>$userInfo->name,'your address'=>$userInfo->address,'your phone'=>$userInfo->phone,'your number card'=>$req->number_card,'orderProducts'=>$arrPodsNamesOrder];
                 // Mail::send('emails.order',$messageData,function($message) use ($emailUser){
                 //     $message->to($emailUser)->subject('order placed - e-shopping website');
@@ -57,8 +57,20 @@ class OrdersController extends Controller
 
                     return response()->json([
                         'status'=>200,
-                        'message'=>$messageData
+                        'type_your_payment_method'=>$req->payment_method,
+                        'delivery_man_name'=>$deliveryuserName,
+                        'your_email'=>$userInfo->email,
+                        'your_name'=>$userInfo->name,
+                        'address'=>$userInfo->address,
+                        'phone'=>$userInfo->phone,
+                        'number_card'=>$req->number_card,
+                        'orderProducts'=>$arrPodsNamesOrder
                     ]);
+            }else{
+                return response()->json([
+                    'status'=>400,
+                    'message'=>'you must put payment method type is valid'
+                ]);
             }
         }
     }

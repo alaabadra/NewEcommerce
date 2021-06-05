@@ -212,7 +212,7 @@ class CartsController extends Controller
                 }
 
                 return response()->json([
-                    'status'=>404,
+                    'status'=>200,
                     'data'=>' this quantity from this product in your cart moved successfully (updated your cart successfully )'
                 ]);
 

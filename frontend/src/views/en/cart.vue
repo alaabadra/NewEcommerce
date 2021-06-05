@@ -1,7 +1,7 @@
 <template>
   <!-- Shoping Cart Section Begin -->
   <section class="shoping-cart spad">
-      <v-snackbar v-model="snackbar" :color="color">
+    <v-snackbar v-model="snackbar" :color="color">
       {{ text }}
 
       <template v-slot:action="{ attrs }">
@@ -10,7 +10,7 @@
         </v-btn>
       </template>
     </v-snackbar>
-  <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__overlay"></div>
 
     <div class="container">
       <div class="row">
@@ -19,7 +19,7 @@
             <table class="col-sm-12 mx-auto">
               <thead>
                 <tr>
-                  <th class="shoping__product"  colspan="5">Products</th>
+                  <th class="shoping__product" colspan="5">Products</th>
                   <th colspan="2">Price</th>
                   <th colspan="2">Quantity</th>
                   <th colspan="2">Total</th>
@@ -30,7 +30,6 @@
                   <td class="shoping__cart__item" colspan="5">
                     <img src="img/cart/cart-1.jpg" alt="" />
                     <h5>{{ product.product_attr_name }}</h5>
-
                   </td>
                   <td class="shoping__cart__price" colspan="2">
                     {{ product.product_attr_price }}
@@ -38,16 +37,14 @@
                   <td class="shoping__cart__quantity" colspan="2">
                     <div class="quantity">
                       <div class="pro-qty">
-                                          <td class="shoping__cart__quantity" colspan="2">
-                    {{ product.pivot.product_attr_quantity }}
-                  </td>
+                        <td class="shoping__cart__quantity" colspan="2">
+                          {{ product.pivot.product_attr_quantity }}
+                        </td>
                       </div>
                     </div>
                   </td>
                   <td class="shoping__cart__total">
-                    {{
-                      product.pivot.product_attr_total
-                    }}
+                    {{ product.pivot.product_attr_total }}
                   </td>
                   <td class="shoping__cart__total">
                     <v-btn icon small @click="increaseQuantityItem(product)">
@@ -98,7 +95,6 @@
                   v-model="editedItem.couponcode"
                   clearable=""
                 ></v-combobox>
-
               </form>
             </div>
           </div>
@@ -107,8 +103,12 @@
           <div class="shoping__checkout">
             <h5>Cart Total</h5>
             <ul>
-              <li>Subtotal <span>${{subTotal}}</span></li>
-              <li>Total <span>${{total}}</span></li>
+              <li>
+                Subtotal <span>${{ subTotal }}</span>
+              </li>
+              <li>
+                Total <span>${{ total }}</span>
+              </li>
             </ul>
             <router-link to="/order">
               <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
@@ -170,7 +170,6 @@
             </v-tooltip>
           </div>
         </div>
-
       </v-card>
     </v-dialog>
     <v-dialog v-model="incDialog" width="600">
@@ -206,7 +205,6 @@
               </template>
               <span>حفظ</span>
             </v-tooltip>
-           
           </div>
         </div>
         <v-tooltip top>
@@ -228,7 +226,6 @@
         </v-tooltip>
       </v-card>
     </v-dialog>
-    
   </section>
   <!-- Shoping Cart Section End -->
 </template>
@@ -240,7 +237,7 @@ import "../../assets/css/font-awesome.min.css";
 import "../../assets/css/elegant-icons.css";
 import "../../assets/css/nice-select.css";
 import "../../assets/css/slicknav.min.css";
-import "../../assets/css/style.css"; 
+import "../../assets/css/style.css";
 export default {
   name: "cart",
   components: {
@@ -248,7 +245,7 @@ export default {
   },
   data: () => {
     return {
-snackbar: false,
+      snackbar: false,
       text: null,
       color: null,
       ErrorBool: false,
@@ -273,8 +270,8 @@ snackbar: false,
       incDialog: false,
       decDialog: false,
       overlay: false,
-      subTotal:null,
-      total:null,
+      subTotal: null,
+      total: null,
       viewProductsCouponcode: [],
       couponcodes: [],
       couponcodes_names: [],
@@ -308,7 +305,7 @@ snackbar: false,
     },
   },
   watch: {
-        Errors(val) {
+    Errors(val) {
       this.snackbar = true;
       this.color = "red darken-1";
       val.forEach((item) => {
@@ -327,7 +324,6 @@ snackbar: false,
     },
     "editedItem.couponcode": {
       handler: function(val, before) {
-
         this.couponcodes.forEach((couponcode) => {
           if (val.value == couponcode.id) {
             this.editedItem.couponcode_id = couponcode.id;
@@ -344,7 +340,7 @@ snackbar: false,
     this.initialize();
   },
   methods: {
-        getError(id) {
+    getError(id) {
       if (this.ErrorMessage.hasOwnProperty(id)) return this.ErrorMessage[id];
     },
     callSuccessMessage(msg) {
@@ -398,8 +394,7 @@ snackbar: false,
             quantityProductInCartUser: this.editedItem.qty,
           }
         )
-                .then((res) => {
-
+        .then((res) => {
           if (res.data.status == 404) {
             this.noDataInSomethingResult();
           } else if (res.data.status == 401) {
@@ -408,9 +403,7 @@ snackbar: false,
             this.callErrorMessage(res.data.status);
           } else {
             if (res.data.length != 0) {
-                this.callSuccessMessage(res.data.message);
-
-      
+              this.callSuccessMessage(res.data.message);
             } else {
               this.noDataInYourEntering();
             }
@@ -443,9 +436,7 @@ snackbar: false,
           }
         )
 
-
-                .then((res) => {
-
+        .then((res) => {
           if (res.data.status == 404) {
             this.noDataInSomethingResult();
           } else if (res.data.status == 401) {
@@ -454,9 +445,7 @@ snackbar: false,
             this.callErrorMessage(res.data.status);
           } else {
             if (res.data.length != 0) {
-                this.callSuccessMessage(res.data.message);
-
-      
+              this.callSuccessMessage(res.data.message);
             } else {
               this.noDataInYourEntering();
             }
@@ -482,27 +471,27 @@ snackbar: false,
           `http://127.0.0.1:8000/api/user/users/coupons/show-couponcode/${this.editedItem.couponcode_id}`
         )
         .then((res) => {
-          this.cuponValue =res.data.data.coupon_code_amount
+          this.cuponValue = res.data.data.coupon_code_amount;
         });
       axios
         .get(
           `http://127.0.0.1:8000/api/user/users/coupons/apply-couponcodes-product/${this.editedItem.couponcode_id}`
         )
         .then((res) => {
-          res.data.data.forEach((item) => { 
+          res.data.data.forEach((item) => {
             this.productsCart.forEach((product) => {
               if (item.id == product.id) {
-               let total = Number(product.pivot.product_attr_quantity) * 
-               Number(product.product_attr_price);
-               let cupVal= total * (this.cuponValue/100);
-               let new_total = total - cupVal;
-               let index = this.productsCart.indexOf(product)
-               setTimeout(()=>{
-                 this.productsCart[index].pivot.product_attr_total = new_total
-               },350)
+                let total =
+                  Number(product.pivot.product_attr_quantity) *
+                  Number(product.product_attr_price);
+                let cupVal = total * (this.cuponValue / 100);
+                let new_total = total - cupVal;
+                let index = this.productsCart.indexOf(product);
+                setTimeout(() => {
+                  this.productsCart[index].pivot.product_attr_total = new_total;
+                }, 350);
               }
             });
-
           });
         });
     },
@@ -514,24 +503,25 @@ snackbar: false,
     initialize() {
       this.incDialog = false;
       this.decDialog = false;
-        let total=0, subTotal=0,tax=2;
+      let total = 0,
+        subTotal = 0,
+        tax = 2;
       axios
         .get(`http://127.0.0.1:8000/api/user/carts/get-user-cart`)
         .then((res) => {
           res.data.data.forEach((item) => {
             let total = {
-              total: 0
-            },
-            mainItem = {};
+                total: 0,
+              },
+              mainItem = {};
             total.total = item.product_attr_price * item.product_attr_quantity;
-            subTotal=subTotal+item.pivot.product_attr_total;
-            this.subTotal=subTotal;
-             mainItem = Object.assign({}, total, item)
+            subTotal = subTotal + item.pivot.product_attr_total;
+            this.subTotal = subTotal;
+            mainItem = Object.assign({}, total, item);
             this.productsCart.push(mainItem);
-          }); 
-          this.subTotal=subTotal;
-          this.total=total+(subTotal*tax);
-
+          });
+          this.subTotal = subTotal;
+          this.total = total + subTotal * tax;
         });
       axios
         .get(`http://127.0.0.1:8000/api/user/users/coupons/get-couponcodes`)
@@ -548,7 +538,6 @@ snackbar: false,
             this.noDataInYourEntering();
           }
         });
-
     },
 
     editItem(item) {
@@ -565,30 +554,28 @@ snackbar: false,
             `http://127.0.0.1:8000/api/user/carts/delete-product-from-user-cart/${item.id}`
           )
 
-           .then((res) => {
-          if (res.data.status == 404) {
-            this.noDataInSomethingResult();
-          } else if (res.data.status == 401) {
-            this.callErrorMessage(res.data.status);
-          } else if (res.data.status == 400) {
-            this.callErrorMessage(res.data.status);
-          } else {
-            if (res.data.length != 0) {
-                this.callSuccessMessage(res.data.message);
-
-      
+          .then((res) => {
+            if (res.data.status == 404) {
+              this.noDataInSomethingResult();
+            } else if (res.data.status == 401) {
+              this.callErrorMessage(res.data.status);
+            } else if (res.data.status == 400) {
+              this.callErrorMessage(res.data.status);
             } else {
-              this.noDataInYourEntering();
+              if (res.data.length != 0) {
+                this.callSuccessMessage(res.data.message);
+              } else {
+                this.noDataInYourEntering();
+              }
             }
-          }
-        })
-        .catch((err) => {
-          if (err.response) {
-            this.callErrorMessage(err.response.status);
-          } else {
-            this.callErrorMessage("Else");
-          }
-        });
+          })
+          .catch((err) => {
+            if (err.response) {
+              this.callErrorMessage(err.response.status);
+            } else {
+              this.callErrorMessage("Else");
+            }
+          });
       this.products_cart.splice(index, 1);
     },
 
